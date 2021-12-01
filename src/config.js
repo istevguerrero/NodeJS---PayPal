@@ -5,3 +5,5 @@ export const paypalSecret = "EED3PJlN11uDoEoQ-aKHxDZzuZTnfx3WBL7k5GRdpVzgi8-rjM-
 export const paypalAPI = "https://api-m.sandbox.paypal.com";
 
 export const portNumber = "3000";
+
+export const hostSever = "http://localhost:3000"

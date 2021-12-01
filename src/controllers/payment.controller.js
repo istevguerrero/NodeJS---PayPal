@@ -1,5 +1,5 @@
 import axios from "axios"
-import { paypalAPI, paypalClient, paypalSecret } from "../config";
+import { paypalAPI, paypalClient, paypalSecret, hostSever} from "../config";
 
 export const createOrder = async (req, res) => {
     try {
@@ -18,8 +18,8 @@ export const createOrder = async (req, res) => {
                 brand_name: "Test Store",
                 landing_page: "LOGIN",
                 user_action: "PAY_NOW",
-                return_url: "http://localhost:3000/capture-order",
-                cancel_url: "http://localhost:3000/cancel-order"
+                return_url: `${hostSever}/capture-order`,
+                cancel_url: `${hostSever}/cancel-order`
             },
         };
         
@@ -38,8 +38,7 @@ export const createOrder = async (req, res) => {
                 username: paypalClient,
                 password: paypalSecret,
             }
-        }
-        )
+        })
     
         console.log(access_token)
     
@@ -57,7 +56,21 @@ export const createOrder = async (req, res) => {
 
 };
 
-export const captureOrder = (req, res) => {
+export const captureOrder = async (req, res) => {
+
+    const {token, PayerID} = req.query;
+
+    const response = await axios.post(`${paypalAPI}/v2/checkout/orders/${token}/capture`, {}, {
+
+        auth: {
+            username: paypalClient,
+            password: paypalSecret,
+        }
+
+    })
+
+    console.log(response.data)
+
     res.send("Capturing order")
 }
 

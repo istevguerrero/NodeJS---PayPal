@@ -3,7 +3,7 @@ import { createOrder, captureOrder, cancelOrder } from "../controllers/payment.c
 
 const router = Router();
 
-router.post("/create-order", createOrder)
+router.get("/create-order", createOrder)
 
 router.get("/capture-order", captureOrder)
 
